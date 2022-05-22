@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'payment/css/payment.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="container-fluid">
+    <div class="d-flex align-items-center">
+      <div class="col-12 col-md-6 col-lg-6  mx-auto">
+        {% block sub_content %} {% endblock %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

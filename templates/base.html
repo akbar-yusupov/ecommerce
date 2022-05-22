@@ -1,0 +1,245 @@
+{% load static mptt_tags i18n mptt_tags %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}{% trans 'Store' %}{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+          integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
+  </script>
+  <script src="{% static 'core/js/search.js' %}"></script>
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+  <link rel="stylesheet" href="{% static 'store/css/store.css' %}">
+  {% block stylesheet %}{% endblock %}
+</head>
+
+<body>
+  <div class="base-body-div">
+    <header>
+      <nav class="navbar navbar-expand-md">
+        <div class="container-fluid px-md-4">
+          <div class="d-flex w-100 navbar-collapse">
+            <a class="navbar-brand text-primary fw-bold rounded-circle p-2" href="/" style="background-color:#FFFF32">
+              BWR
+            </a>
+
+            <ul class="navbar-nav me-auto">
+              <li class="nav-item dropdown h5 m-auto">
+                <a class="nav-link dropdown-toggle d-none d-md-block fw-bold text-secondary" href="#"
+                   role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {% trans 'All' %}
+                  <i class="ps-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                  </i>
+                </a>
+                <ul class="dropdown-menu border-2 mt-2 p-0" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{% url 'store:store_home' %}">{% trans 'All' %}</a></li>
+
+                  {% recursetree categories %}
+
+                    <li {% if category.slug == node.slug %} style="background-color:#E1E1E1" {% endif %}>
+                      <a class="dropdown-item" href="{% url 'store:category_list' node.slug %}">
+                        {{ node.name }}
+                      </a>
+                      {% if not node.is_leaf_node %}
+                        <ul class="list-unstyled mx-2">
+                          {{ children }}
+                        </ul>
+                      {% endif %}
+                    </li>
+
+                  {% endrecursetree %}
+
+                </ul>
+              </li>
+            </ul>
+
+            <form id="search-form" class="d-flex" action="{% url 'store:search' %}" method="get">
+              <input class="form-control p-2" id="search-input" name="q" type="search" placeholder="Search products"
+                     aria-label="Search" minlength="3">
+              <button class="btn btn-sm  basket-btn px-1 py-2 mx-1" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+              </button>
+            </form>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                </svg>
+              </div>
+              <span class="fs15 fw500">{% trans 'Shop' %}</span>
+            </button>
+
+            <span class="p-1 btn btn-outline-secondary border-0 basket-btn">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
+                  <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"/>
+                  <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"/>
+                </svg>
+              </div>
+                <span class="nav-item dropdown">
+
+                  <a class="nav-link dropdown-toggle m-0 p-0 link-secondary"  href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {% trans 'Language' %}
+                  </a>
+                  <ul class="dropdown-menu m-0 p-0" aria-labelledby="navbarDropdown">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+
+                    {% for lang in languages %}
+
+                      <li>
+                        <a class="dropdown-item" href="/{{ lang.code }}/">
+                          {{ lang.name_local }}
+                        </a>
+                      </li>
+
+                    {% endfor %}
+
+                  </ul>
+
+                </span>
+            </span>
+
+
+            <a type="button" role="button" href="{% url 'accounts:edit_user' %}"
+               class="btn btn-outline-secondary border-0 basket-btn">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                     class="bi bi-person" viewBox="0 0 16 16">
+                  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                </svg>
+              </div>
+              {% if user.is_authenticated %}
+
+                <span class="fs15 fw500">{% trans 'Account' %}</span>
+
+              {% else %}
+
+                <span class="fs15 fw500">{% trans 'Login' %}</span>
+
+              {% endif %}
+            </a>
+
+            <a type="button" role="button" href="{% url 'accounts:dashboard' %}"
+               class="btn btn-outline-secondary border-0 basket-btn">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                  <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                  <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                </svg>
+              </div>
+              <span class="fs15 fw1500">{% trans 'Dashboard' %}</span>
+            </a>
+
+            <a type="button" role="button" href="{% url 'basket:basket_summary' %}"
+               class="btn btn-outline-secondary border-0 basket-btn">
+              <div id="basket-qty" class="basket-qty">
+                {{ basket|length }}
+              </div>
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
+                     class="bi bi-cart3" viewBox="0 0 16 16">
+                  <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                </svg>
+              </div>
+              <span class="fs15 fw500">{% trans 'Basket' %}</span>
+            </a>
+          </div>
+          <div class="d-md-none d-lg-none d-xl-none">
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li><a class="dropdown-item" href="{% url 'store:store_home' %}">{% trans 'All' %}</a></li>
+
+                {% for c in categories %}
+
+                  <li {% if category.slug == c.slug %}class="selected" {% endif %}>
+                    <a class="dropdown-item" href="{{ c.get_absolute_url }}">{{ c.name|title }}</a>
+                  </li>
+
+                {% endfor %}
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div id="main-div" style="border-radius:44px 44px 0px 0px; background-color:white">
+      <main class="pt-4">
+        <div id="content">{% block content %} {% endblock %}</div>
+      </main>
+
+      <footer class="container py-5 footer">
+        <hr>
+        <div class="row pt-4">
+          <div class="col-12 col-md">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-asterisk" viewBox="0 0 16 16">
+              <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z" />
+            </svg>
+            <small class="d-block mb-3 text-muted">&copy; 1337-2022</small>
+          </div>
+          <div class="col-6 col-md fs15">
+            <h5>Features</h5>
+            <ul class="list-unstyled">
+              <li><a class="link-secondary text-decoration-none" href="#">Cool stuff</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Random feature</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Team feature</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Stuff for developers</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Another one</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Last time</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md fs15">
+            <h5>Resources</h5>
+            <ul class="list-unstyled">
+              <li><a class="link-secondary text-decoration-none" href="#">Resource name</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Resource</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Another resource</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Final resource</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md fs15">
+            <h5>Resources</h5>
+            <ul class="list-unstyled">
+              <li><a class="link-secondary text-decoration-none" href="#">Business</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Education</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Government</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Gaming</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled">
+              <li><a class="link-secondary text-decoration-none" href="#">Team</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Locations</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Privacy</a></li>
+              <li><a class="link-secondary text-decoration-none" href="#">Terms</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

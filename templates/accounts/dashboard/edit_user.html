@@ -1,0 +1,54 @@
+{% extends "accounts/sub_base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Edit Profile' %}{% endblock %}
+
+{% block sub_content %}
+
+  <form class="account-form px-4" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {% if form.errors %}
+
+       {% for field in form %}
+
+           {% for error in field.errors %}
+
+              <div class="alert alert-primary">
+                   <strong>{{ error|escape }}</strong>
+              </div>
+
+           {% endfor %}
+
+       {% endfor %}
+
+    {% endif %}
+
+    <label class="small font-weight-bold">{{ form.email.label}}</label>
+    {{ form.email }}
+    <label class="small font-weight-bold">{{ form.full_name.label}}</label>
+    {{ form.full_name }}
+    <label class="small font-weight-bold">{{ form.phone.label}}</label>
+    {{ form.phone }}
+
+    <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw-bold w-100" type="submit"
+            value="Save changes">{% trans 'Save Changes' %}</button>
+
+    <hr>
+    <a class="btn btn-warning btn-block fw-bold w-100" href="{% url 'accounts:logout' %}">
+      {% trans 'Log out' %}
+    </a>
+    <hr>
+  </form>
+
+  <form class="account-form px-4" action="{% url 'accounts:delete_user' %}" method="post">
+    {% csrf_token %}
+    <p class=" h3 pt-4 font-weight-bold">{% trans 'Delete Account' %}</p>
+    <p>{% trans 'Are you sure you want to delete your account?' %}</p>
+    <button type="submit" role="button"
+            class="btn btn-danger btn-block py-2 mb-4 mt-5 fw-bold w-100">
+      {% trans 'Delete' %}
+    </button>
+  </form>
+
+{% endblock %}

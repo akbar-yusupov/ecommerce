@@ -1,0 +1,36 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>{% trans 'Special offer' %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+  <h1>{% trans 'Dear customer!' %}</h1>
+  <h3>
+    <a href="{{host}}">{% trans 'We have found' %}</a> {% trans ' the most profitable product special for you:' %}
+  </h3>
+  <a href="{{host}}{% url 'store:product_detail' product.slug %}">
+    <h3>{{title}}</h3>
+  </a>
+  <h3>Discount: {{ product.discount }} %</h3>
+  <p>Description: {{ product.description }}</p>
+  <p>Price: <span id="crossed-out-price">{{ product.regular_price  }}</span> Discount price: CALCULATE HERE</p>
+
+  <style>
+    #crossed-out-price{
+      position: relative;
+    }
+
+    #crossed-out-price:before{
+      border-bottom: 2px solid red;
+      position: absolute;
+      content: "";
+      width: 92%;
+      height: 50%;
+      transform: rotate(-9deg);
+    }
+  </style>
+</body>
+</html>

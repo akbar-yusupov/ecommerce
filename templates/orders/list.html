@@ -1,0 +1,50 @@
+{% extends "accounts/sub_base.html" %}
+{% load static i18n %}
+{% block title %}{% trans 'Orders' %}{% endblock title %}
+
+{% block sub_content %}
+  <h2 class="text-center">{% trans 'Your orders:' %}</h2>
+  {% for order in orders %}
+
+    <div class="d-style btn btn-brc-tp w-100 my-2 py-3 shadow-lg">
+      <div class="row align-items-center">
+        <div class="col-12 col-md-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-gift-fill" viewBox="0 0 16 16">
+            <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506V2.5zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07zM9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0V3zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7h6zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9H2.5z"/>
+          </svg>
+          <h4 class="pt-3">${{ order.total_paid }}</h4>
+        </div>
+        <div class="col-12 col-md-4 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+            <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+          </svg>
+          <h4 class="pt-3">
+            <a href="{% url 'accounts:edit_address' order.address.pk %}">{% trans 'Address' %}</a>
+          </h4>
+        </div>
+        <div class="col-12 col-md-4 text-center">
+          <h6 class="pt-4 pb-3">Paid at: {{ order.created_at }}</h6>
+          {% if order.delivery_status == 1 %}
+
+            <h4 class="btn btn-warning w-75">{{ order.get_delivery_status_display }}</h4>
+
+          {% elif order.delivery_status == 2 %}
+
+            <h4 class="btn btn-info w-75">{{ order.get_delivery_status_display }}</h4>
+
+          {% else %}
+
+            <h4 class="btn btn-success w-75">{{ order.get_delivery_status_display }}</h4>
+
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  {% empty %}
+
+    {% trans "You don't have any orders yet" %}
+
+  {% endfor %}
+
+{% endblock %}

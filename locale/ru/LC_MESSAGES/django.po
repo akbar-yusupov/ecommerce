@@ -1,0 +1,1006 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-19 01:51+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\accounts\forms.py:15
+msgid "Enter your email"
+msgstr ""
+
+#: .\accounts\forms.py:25
+msgid "Enter your password"
+msgstr ""
+
+#: .\accounts\forms.py:33 .\accounts\forms.py:105 .\accounts\forms.py:141
+msgid "Email"
+msgstr ""
+
+#: .\accounts\forms.py:36
+msgid "Sorry, you will need an email"
+msgstr ""
+
+#: .\accounts\forms.py:39 .\accounts\models.py:44 .\accounts\models.py:68
+#: .\templates\accounts\dashboard\address-list.html:42
+msgid "Full Name"
+msgstr ""
+
+#: .\accounts\forms.py:42
+msgid "Sorry, you need to enter full name"
+msgstr ""
+
+#: .\accounts\forms.py:45
+msgid "Password"
+msgstr ""
+
+#: .\accounts\forms.py:51
+msgid "Repeat Password"
+msgstr ""
+
+#: .\accounts\forms.py:60
+msgid "Enter full name"
+msgstr ""
+
+#: .\accounts\forms.py:71
+msgid "secured password"
+msgstr ""
+
+#: .\accounts\forms.py:77
+msgid "same secured password"
+msgstr ""
+
+#: .\accounts\forms.py:85
+msgid "Passwords do not match"
+msgstr ""
+
+#: .\accounts\forms.py:90
+msgid "Email already exists"
+msgstr ""
+
+#: .\accounts\forms.py:101
+msgid "Account Email"
+msgstr ""
+
+#: .\accounts\forms.py:110
+msgid "First Name"
+msgstr ""
+
+#: .\accounts\forms.py:119
+msgid "Phone"
+msgstr ""
+
+#: .\accounts\forms.py:125 .\templates\accounts\dashboard\address-list.html:46
+msgid "Phone number"
+msgstr ""
+
+#: .\accounts\forms.py:151
+msgid "Unfortunately we can not find that email address"
+msgstr ""
+
+#: .\accounts\forms.py:157
+msgid "New password"
+msgstr ""
+
+#: .\accounts\forms.py:161 .\accounts\forms.py:170
+msgid "New Password"
+msgstr ""
+
+#: .\accounts\forms.py:166
+msgid "Repeat password"
+msgstr ""
+
+#: .\accounts\forms.py:193
+msgid "Enter phone"
+msgstr ""
+
+#: .\accounts\forms.py:199 .\templates\accounts\dashboard\address-list.html:43
+msgid "Address line"
+msgstr ""
+
+#: .\accounts\forms.py:205
+msgid "Enter town or city"
+msgstr ""
+
+#: .\accounts\forms.py:211
+msgid "Enter delivery instructions"
+msgstr ""
+
+#: .\accounts\forms.py:217
+msgid "Enter latitude"
+msgstr ""
+
+#: .\accounts\forms.py:223
+msgid "Enter longitude"
+msgstr ""
+
+#: .\accounts\models.py:18
+msgid "Superuser must be assigned to is_staff=True"
+msgstr ""
+
+#: .\accounts\models.py:22
+msgid "Superuser must be assigned to is_superuser=True"
+msgstr ""
+
+#: .\accounts\models.py:28
+msgid "You must provide an email address"
+msgstr ""
+
+#: .\accounts\models.py:38
+msgid "Email address"
+msgstr ""
+
+#: .\accounts\models.py:39 .\store\models.py:32 .\store\models.py:74
+#: .\store\models.py:80
+msgid "Required"
+msgstr ""
+
+#: .\accounts\models.py:45 .\accounts\models.py:69
+msgid "Phone Number"
+msgstr ""
+
+#: .\accounts\models.py:57 .\templates\base.html:141
+msgid "Account"
+msgstr ""
+
+#: .\accounts\models.py:58
+msgid "Accounts"
+msgstr ""
+
+#: .\accounts\models.py:63 .\store\models.py:153
+msgid "Customer"
+msgstr ""
+
+#: .\accounts\models.py:65 .\store\models.py:265
+msgid "Country"
+msgstr ""
+
+#: .\accounts\models.py:66 .\templates\accounts\dashboard\address-list.html:44
+msgid "Town/City"
+msgstr ""
+
+#: .\accounts\models.py:67
+msgid "Address Line"
+msgstr ""
+
+#: .\accounts\models.py:71 .\store\models.py:268
+msgid "Latitude"
+msgstr ""
+
+#: .\accounts\models.py:77 .\store\models.py:274
+msgid "Longitude"
+msgstr ""
+
+#: .\accounts\models.py:83
+msgid "Delivery Instructions"
+msgstr ""
+
+#: .\accounts\models.py:85 .\templates\accounts\dashboard\address-list.html:37
+msgid "Default"
+msgstr ""
+
+#: .\accounts\models.py:95 .\orders\models.py:15
+#: .\templates\orders\list.html:22
+msgid "Address"
+msgstr ""
+
+#: .\accounts\models.py:96 .\templates\accounts\dashboard\address-list.html:3
+msgid "Addresses"
+msgstr ""
+
+#: .\basket\views.py:66
+msgid "Our Storage's location"
+msgstr ""
+
+#: .\basket\views.py:76
+msgid "Your address location"
+msgstr ""
+
+#: .\ecommerce\settings\settings.py:118
+msgid "English"
+msgstr ""
+
+#: .\ecommerce\settings\settings.py:119
+msgid "Russian"
+msgstr ""
+
+#: .\orders\models.py:10
+msgid "Not out yet"
+msgstr ""
+
+#: .\orders\models.py:11
+msgid "On the way"
+msgstr ""
+
+#: .\orders\models.py:12
+msgid "Delivered"
+msgstr ""
+
+#: .\orders\models.py:18 .\store\models.py:284
+msgid "Storage"
+msgstr ""
+
+#: .\orders\models.py:21
+msgid "Total paid"
+msgstr ""
+
+#: .\orders\models.py:23
+msgid "Order key"
+msgstr ""
+
+#: .\orders\models.py:25
+msgid "Billing status"
+msgstr ""
+
+#: .\orders\models.py:28
+msgid "Delivery status"
+msgstr ""
+
+#: .\orders\models.py:35 .\orders\models.py:44
+#: .\templates\basket\summary.html:66
+msgid "Order"
+msgstr ""
+
+#: .\orders\models.py:36 .\templates\accounts\dashboard\dashboard.html:28
+#: .\templates\orders\list.html:3
+msgid "Orders"
+msgstr ""
+
+#: .\orders\models.py:50 .\store\models.py:140 .\store\models.py:147
+#: .\store\models.py:169 .\store\models.py:183
+msgid "Product"
+msgstr ""
+
+#: .\orders\models.py:54
+msgid "Price"
+msgstr ""
+
+#: .\orders\models.py:57 .\templates\basket\summary.html:141
+#: .\templates\store\single.html:60
+msgid "Quantity"
+msgstr ""
+
+#: .\orders\models.py:62
+msgid "Order item"
+msgstr ""
+
+#: .\orders\models.py:63
+msgid "Order items"
+msgstr ""
+
+#: .\store\models.py:13
+msgid "Created at"
+msgstr ""
+
+#: .\store\models.py:16 .\store\models.py:248
+msgid "Updated at"
+msgstr ""
+
+#: .\store\models.py:25
+msgid "Category Name"
+msgstr ""
+
+#: .\store\models.py:26
+msgid "Required and unique"
+msgstr ""
+
+#: .\store\models.py:31 .\store\models.py:188
+msgid "Image"
+msgstr ""
+
+#: .\store\models.py:35
+msgid "Category URL"
+msgstr ""
+
+#: .\store\models.py:39
+msgid "Parent"
+msgstr ""
+
+#: .\store\models.py:45
+msgid "Is active"
+msgstr ""
+
+#: .\store\models.py:57 .\store\models.py:69 .\templates\store\category.html:30
+msgid "Category"
+msgstr ""
+
+#: .\store\models.py:58
+msgid "Categories"
+msgstr ""
+
+#: .\store\models.py:74
+msgid "Title"
+msgstr ""
+
+#: .\store\models.py:77
+msgid "Description"
+msgstr ""
+
+#: .\store\models.py:77
+msgid "Not required"
+msgstr ""
+
+#: .\store\models.py:80
+msgid "Product URL"
+msgstr ""
+
+#: .\store\models.py:83
+msgid "Regular price"
+msgstr ""
+
+#: .\store\models.py:84
+msgid "Maximum 9999.99"
+msgstr ""
+
+#: .\store\models.py:87
+msgid "The price must be between 0 and 9999.99"
+msgstr ""
+
+#: .\store\models.py:94
+msgid "Discount percentage"
+msgstr ""
+
+#: .\store\models.py:95
+msgid "Maximum 99%"
+msgstr ""
+
+#: .\store\models.py:98
+msgid "Percentage between 0 and 99.9"
+msgstr ""
+
+#: .\store\models.py:104
+msgid "Users wishlist"
+msgstr ""
+
+#: .\store\models.py:109
+msgid "Product visibility"
+msgstr ""
+
+#: .\store\models.py:110
+msgid "Change product visibility"
+msgstr ""
+
+#: .\store\models.py:141
+msgid "Products"
+msgstr ""
+
+#: .\store\models.py:158
+msgid "Score"
+msgstr ""
+
+#: .\store\models.py:173 .\store\models.py:264
+msgid "Name"
+msgstr ""
+
+#: .\store\models.py:174
+msgid "Value"
+msgstr ""
+
+#: .\store\models.py:189
+msgid "Upload a product image"
+msgstr ""
+
+#: .\store\models.py:194
+msgid "Alternative text"
+msgstr ""
+
+#: .\store\models.py:195
+msgid "Please enter alternative text"
+msgstr ""
+
+#: .\store\models.py:201
+msgid "Is Featured"
+msgstr ""
+
+#: .\store\models.py:202
+msgid "Main image checkbox"
+msgstr ""
+
+#: .\store\models.py:211
+msgid "You need a featured image"
+msgstr ""
+
+#: .\store\models.py:216
+msgid " can have only 1 featured image(for main pages)"
+msgstr ""
+
+#: .\store\models.py:228
+msgid "You cannot delete all product's images"
+msgstr ""
+
+#: .\store\models.py:233
+msgid "Product Image"
+msgstr ""
+
+#: .\store\models.py:234
+msgid "Product Images"
+msgstr ""
+
+#: .\store\models.py:244
+msgid "Products list"
+msgstr ""
+
+#: .\store\models.py:245
+msgid "Only first 5 products will be shown"
+msgstr ""
+
+#: .\store\models.py:259
+msgid "Product of the day"
+msgstr ""
+
+#: .\store\models.py:260
+msgid "Products of the day"
+msgstr ""
+
+#: .\store\models.py:266
+msgid "City"
+msgstr ""
+
+#: .\store\models.py:285
+msgid "Storages"
+msgstr ""
+
+#: .\templates\404.html:14
+msgid "The page you are looking for was not found."
+msgstr ""
+
+#: .\templates\404.html:15
+msgid "Back to Main"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:7
+#: .\templates\accounts\dashboard\dashboard.html:48
+msgid "Your Addresses"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:8
+#: .\templates\accounts\dashboard\dashboard.html:11
+#: .\templates\basket\summary.html:13
+msgid "Manage your"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:8
+msgid "addresses"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:8
+#: .\templates\accounts\dashboard\edit_address.html:9
+msgid "and delivery preferences"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:24
+msgid "Add Address"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:45
+msgid "Delivery instructions"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:48
+msgid "Edit"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:50
+#: .\templates\accounts\dashboard\edit_user.html:50
+#: .\templates\basket\summary.html:156
+msgid "Delete"
+msgstr ""
+
+#: .\templates\accounts\dashboard\address-list.html:54
+msgid "Set Default"
+msgstr ""
+
+#: .\templates\accounts\dashboard\dashboard.html:3 .\templates\base.html:158
+msgid "Dashboard"
+msgstr ""
+
+#: .\templates\accounts\dashboard\dashboard.html:8
+msgid "Your Account"
+msgstr ""
+
+#: .\templates\accounts\dashboard\dashboard.html:11
+msgid "orders"
+msgstr ""
+
+#: .\templates\accounts\dashboard\dashboard.html:11
+msgid "and personal details"
+msgstr ""
+
+#: .\templates\accounts\dashboard\dashboard.html:29
+msgid "View and Track your orders"
+msgstr ""
+
+#: .\templates\accounts\dashboard\dashboard.html:49
+msgid "Edit your shipping addresses"
+msgstr ""
+
+#: .\templates\accounts\dashboard\dashboard.html:70
+msgid "Your Wish List"
+msgstr ""
+
+#: .\templates\accounts\dashboard\dashboard.html:71
+msgid "View and change your Wish List"
+msgstr ""
+
+#: .\templates\accounts\dashboard\delete_confirm.html:3
+msgid "Delete Account Confirmation"
+msgstr ""
+
+#: .\templates\accounts\dashboard\delete_confirm.html:9
+#: .\templates\accounts\dashboard\edit_user.html:46
+msgid "Delete Account"
+msgstr ""
+
+#: .\templates\accounts\dashboard\delete_confirm.html:10
+msgid "You have now deleted your account"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_address.html:3
+msgid "Edit Addresses"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_address.html:8
+msgid "Create/Edit Address"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_address.html:9
+msgid "Add a new delivery"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_address.html:43
+msgid "Click on the desired point and get coordinates"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_address.html:45
+msgid "Save"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_user.html:3
+msgid "Edit Profile"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_user.html:35
+msgid "Save Changes"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_user.html:39
+msgid "Log out"
+msgstr ""
+
+#: .\templates\accounts\dashboard\edit_user.html:47
+msgid "Are you sure you want to delete your account?"
+msgstr ""
+
+#: .\templates\accounts\dashboard\user_wishlist.html:3
+msgid "Users Wish List"
+msgstr ""
+
+#: .\templates\accounts\dashboard\user_wishlist.html:8
+msgid "My Wishlist"
+msgstr ""
+
+#: .\templates\accounts\dashboard\user_wishlist.html:9
+msgid "Manage your Wishlist"
+msgstr ""
+
+#: .\templates\accounts\dashboard\user_wishlist.html:32
+msgid "Remove from Wishlist"
+msgstr ""
+
+#: .\templates\accounts\dashboard\user_wishlist.html:44
+msgid "No products have been added to your wishlist yet"
+msgstr ""
+
+#: .\templates\accounts\login.html:3
+msgid "Log-in"
+msgstr ""
+
+#: .\templates\accounts\login.html:10
+msgid "Log In"
+msgstr ""
+
+#: .\templates\accounts\login.html:15
+msgid "Error: Email or Password incorrect!"
+msgstr ""
+
+#: .\templates\accounts\login.html:28
+msgid "Log in"
+msgstr ""
+
+#: .\templates\accounts\login.html:35
+#: .\templates\accounts\registration\register.html:9
+msgid "Create an account"
+msgstr ""
+
+#: .\templates\accounts\login.html:38
+msgid "Forgotten Password?"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_confirm.html:3
+msgid "Password Reset Confirm"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_confirm.html:15
+msgid "Change your password"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_confirm.html:16
+msgid "Use the form below to change your password."
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_confirm.html:39
+msgid "Your password can’t be too similar to your other personal information."
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_confirm.html:40
+msgid "Your password must contain at least 8 characters."
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_confirm.html:41
+msgid "Your password can’t be a commonly used password."
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_confirm.html:42
+msgid "Your password can’t be entirely numeric."
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_confirm.html:45
+#: .\templates\basket\summary.html:109
+msgid "Submit"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_form.html:3
+msgid "Password Reset"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_form.html:15
+msgid "Forgotten your password?"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_form.html:16
+msgid "Enter your e-mail address to obtain a new password."
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_form.html:37
+msgid "Send e-mail"
+msgstr ""
+
+#: .\templates\accounts\password_reset\password_reset_form.html:39
+#: .\templates\accounts\password_reset\reset_status.html:20
+#: .\templates\base.html:145
+msgid "Login"
+msgstr ""
+
+#: .\templates\accounts\password_reset\reset_status.html:3
+msgid "Reset Status"
+msgstr ""
+
+#: .\templates\accounts\password_reset\reset_status.html:12
+#: .\templates\accounts\password_reset\reset_status.html:19
+msgid "Password Reset Success"
+msgstr ""
+
+#: .\templates\accounts\password_reset\reset_status.html:13
+msgid "Check your email for instructions"
+msgstr ""
+
+#: .\templates\accounts\registration\account_activation_email.html:3
+msgid "Hi"
+msgstr ""
+
+#: .\templates\accounts\registration\account_activation_email.html:5
+msgid ""
+"Your account has successfully created. Please click below link to activate "
+"your account"
+msgstr ""
+
+#: .\templates\accounts\registration\activation_invalid.html:3
+msgid "Invalid Account"
+msgstr ""
+
+#: .\templates\accounts\registration\activation_invalid.html:9
+msgid "Error"
+msgstr ""
+
+#: .\templates\accounts\registration\activation_invalid.html:10
+msgid "Invalid url for account activation"
+msgstr ""
+
+#: .\templates\accounts\registration\register.html:3
+#: .\templates\accounts\registration\register.html:43
+msgid "Register"
+msgstr ""
+
+#: .\templates\accounts\registration\register.html:10
+msgid "It"
+msgstr ""
+
+#: .\templates\accounts\registration\register.html:14
+msgid "Please correct the following errors:"
+msgstr ""
+
+#: .\templates\accounts\registration\register.html:48
+msgid "Already have an account?"
+msgstr ""
+
+#: .\templates\accounts\registration\register_email_confirm.html:3
+msgid "Register Account"
+msgstr ""
+
+#: .\templates\accounts\registration\register_email_confirm.html:9
+msgid "Account email sent"
+msgstr ""
+
+#: .\templates\accounts\registration\register_email_confirm.html:10
+msgid "Check your email to activate your account"
+msgstr ""
+
+#: .\templates\base.html:7 .\templates\store\index.html:4
+msgid "Store"
+msgstr ""
+
+#: .\templates\base.html:38 .\templates\base.html:46 .\templates\base.html:178
+msgid "All"
+msgstr ""
+
+#: .\templates\base.html:95
+msgid "Shop"
+msgstr ""
+
+#: .\templates\base.html:108
+msgid "Language"
+msgstr ""
+
+#: .\templates\base.html:172
+msgid "Basket"
+msgstr ""
+
+#: .\templates\basket\summary.html:4
+msgid "Basket Summary"
+msgstr ""
+
+#: .\templates\basket\summary.html:10
+msgid "Your Basket"
+msgstr ""
+
+#: .\templates\basket\summary.html:13
+msgid "items"
+msgstr ""
+
+#: .\templates\basket\summary.html:13
+msgid "in your basket"
+msgstr ""
+
+#: .\templates\basket\summary.html:25
+msgid "Your basket is empty"
+msgstr ""
+
+#: .\templates\basket\summary.html:26 .\templates\store\category.html:70
+#: .\templates\store\search.html:54
+msgid "shop"
+msgstr ""
+
+#: .\templates\basket\summary.html:35
+msgid "Delivery route"
+msgstr ""
+
+#: .\templates\basket\summary.html:39
+msgid "Route details"
+msgstr ""
+
+#: .\templates\basket\summary.html:46
+msgid "From"
+msgstr ""
+
+#: .\templates\basket\summary.html:47
+msgid "to"
+msgstr ""
+
+#: .\templates\basket\summary.html:54
+msgid "Distance is"
+msgstr ""
+
+#: .\templates\basket\summary.html:54
+msgid "km"
+msgstr ""
+
+#: .\templates\basket\summary.html:67
+msgid "(select and send the address)"
+msgstr ""
+
+#: .\templates\basket\summary.html:73
+msgid "Sub Total:"
+msgstr ""
+
+#: .\templates\basket\summary.html:75
+msgid "Delivery:"
+msgstr ""
+
+#: .\templates\basket\summary.html:78 .\templates\basket\summary.html:80
+msgid "Total to pay:"
+msgstr ""
+
+#: .\templates\basket\summary.html:80
+msgid "Create address"
+msgstr ""
+
+#: .\templates\basket\summary.html:87
+msgid "Address:"
+msgstr ""
+
+#: .\templates\basket\summary.html:152
+msgid "Update"
+msgstr ""
+
+#: .\templates\orders\list.html:6
+msgid "Your orders:"
+msgstr ""
+
+#: .\templates\orders\list.html:50
+msgid "You don"
+msgstr ""
+
+#: .\templates\payment\order_placed.html:3
+msgid "Order Placed"
+msgstr ""
+
+#: .\templates\payment\payment_form.html:3
+#: .\templates\payment\payment_form.html:8
+msgid "Payment"
+msgstr ""
+
+#: .\templates\payment\payment_form.html:12
+msgid "Credit or debit card"
+msgstr ""
+
+#: .\templates\payment\payment_form.html:18
+msgid "Pay"
+msgstr ""
+
+#: .\templates\store\category.html:12
+msgid "category"
+msgstr ""
+
+#: .\templates\store\category.html:69 .\templates\store\search.html:53
+msgid "No available products"
+msgstr ""
+
+#: .\templates\store\category.html:83 .\templates\store\category.html:88
+msgid "previous"
+msgstr ""
+
+#: .\templates\store\category.html:109 .\templates\store\category.html:113
+#: .\templates\store\search.html:66
+msgid "next"
+msgstr ""
+
+#: .\templates\store\index.html:29
+msgid "Products of the day:"
+msgstr ""
+
+#: .\templates\store\index.html:100
+msgid "Most rated products:"
+msgstr ""
+
+#: .\templates\store\index.html:171
+msgid "Most purchased products:"
+msgstr ""
+
+#: .\templates\store\search.html:3
+msgid "Product search"
+msgstr ""
+
+#: .\templates\store\search.html:9
+msgid "Products satisfying"
+msgstr ""
+
+#: .\templates\store\search.html:9
+msgid "search:"
+msgstr ""
+
+#: .\templates\store\search.html:12
+msgid "We found"
+msgstr ""
+
+#: .\templates\store\search.html:12
+msgid "product"
+msgstr ""
+
+#: .\templates\store\single.html:4
+msgid "Single product"
+msgstr ""
+
+#: .\templates\store\single.html:22
+msgid "Your Wishlist"
+msgstr ""
+
+#: .\templates\store\single.html:72
+msgid "Add to basket"
+msgstr ""
+
+#: .\templates\store\single.html:76
+msgid "Add to"
+msgstr ""
+
+#: .\templates\store\single.html:76
+msgid "Delete from"
+msgstr ""
+
+#: .\templates\store\single.html:76
+msgid "Wishlist"
+msgstr ""
+
+#: .\templates\store\single.html:84
+msgid "You bought this product, click star and rate:"
+msgstr ""
+
+#: .\templates\store\single.html:96
+msgid "You bought this product and rated it to:"
+msgstr ""
+
+#: .\templates\store\single.html:118
+msgid "time"
+msgstr ""
+
+#: .\templates\store\single.html:118
+msgid "bought"
+msgstr ""
+
+#: .\templates\store\single.html:164
+msgid "Description:"
+msgstr ""
+
+#: .\templates\store\single.html:170
+msgid "not specified"
+msgstr ""
+
+#: .\templates\store\single.html:173
+msgid "Specifications:"
+msgstr ""
+
+#: .\templates\store\single.html:179
+msgid "This product has no specifications"
+msgstr ""
+
+#: .\templates\store\single.html:185
+msgid "Last visited products:"
+msgstr ""

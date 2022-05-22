@@ -1,0 +1,44 @@
+{% extends "accounts/sub_base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Log-in' %}{% endblock %}
+
+{% block sub_content %}
+
+  <form class="account-form" method="post">
+
+    {% csrf_token %}
+    <h3 class="mb-4 fw-bold">{% trans 'Log In' %}</h3>
+
+    {% if form.errors %}
+
+      <div class="alert alert-primary" role="alert">
+        {% trans 'Error: Email or Password incorrect!'%}
+      </div>
+
+    {% endif %}
+
+    <label class="form-label">{{ form.email.label}}</label>
+    {{ form.email}}
+
+    <label class="form-label">{{ form.password.label}}</label>
+    {{ form.password}}
+
+    <div class="d-grid gap-2">
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">{% trans 'Log in' %}
+      </button>
+    </div>
+
+
+    <div class="flex-column justify-content-center mx-auto pb-3">
+      <div class="text-center">
+        <a href="{% url 'accounts:register' %}">{% trans 'Create an account' %}</a>
+      </div>
+      <div class="text-center">
+        <a href="{% url 'accounts:logout_for_password_reset' %}">{% trans 'Forgotten Password?' %}</a>
+      </div>
+    </div>
+
+  </form>
+
+{% endblock %}

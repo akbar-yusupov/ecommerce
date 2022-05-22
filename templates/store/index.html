@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+{% load static divide i18n %}
+
+{% block title %}{% trans 'Store' %}{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="album py-5">
+
+      <div class="row">
+
+        {% for category in random_categories %}
+
+          <div class="card p-0 mx-2 mb-3 card-width">
+            <img class="card-img-top product-image" src="{{ category.image.url }}" alt="Category image">
+            <div class="card-body p-1">
+              <a href="{{ category.get_absolute_url }}" class="text-decoration-none">
+                <span class="h4">{{ category.name }}</span>
+              </a>
+            </div>
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+      <hr>
+      <h3>{% trans 'Products of the day:' %}</h3>
+
+      <div class="row">
+
+        {% for product in products_of_the_day %}
+
+          <div class="card p-0 mx-2 mb-3 card-width">
+
+            {% for image in product.product_image.all %}
+
+              {% if image.is_featured %}
+
+                <img class="card-img-top product-image" alt="Product image"
+                     src="{{ image.image.url }}">
+
+              {% endif %}
+
+            {% empty %}
+
+              <img class="card-img-top product-image" alt="Product image"
+                     src="{% static 'images/default-product.png' %}">
+
+            {% endfor %}
+
+
+            {% if product.rating_count %}
+
+              {% divide_partition product.rating_sum product.rating_count as rating_partition %}
+              {% divide_remainder product.rating_sum product.rating_count as rating_remainder %}
+
+              <span class="product-rating">
+
+                {% with ''|center:rating_partition as range %}
+                  {% for _ in range %}
+                      <span class="fa fa-star stars"></span>
+                  {% endfor %}
+                {% endwith %}
+
+                {% if rating_remainder == 'Yes' %}
+                  <span class="fa fa-star-half-o stars"></span>
+                {% endif %}
+
+                <span class="fw-bold">({{ product.rating_count }})</span>
+              </span>
+
+            {% endif %}
+
+            <div class="card-body pb-2">
+              <h4><a href="{{ product.category.get_absolute_url }}" class="text-decoration-none text-secondary">{{ product.category.name }}</a></h4>
+              <h4><a href="{{ product.get_absolute_url }}" class="text-decoration-none text-primary">{{ product.title }}</a></h4>
+
+              {% if product.regular_price == product.final_price %}
+
+                <h4 class="fw-bold">{{ product.regular_price }} $</h4>
+
+              {% else %}
+
+                <span class="product-discount text-center text-white fw-bold"> &#128293;{{ product.discount_percentage }}%</span>
+                <span class="h4 crossed-out-price">{{ product.regular_price }} $ <br></span>
+                <span class="h4 fw-bold">{{ product.final_price|floatformat:2 }} $</span>
+
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+      <h3>{% trans 'Most rated products:' %}</h3>
+
+      <div class="row">
+
+        {% for product in most_rated %}
+
+          <div class="card p-0 mx-2 mb-3 card-width">
+
+            {% for image in product.product_image.all %}
+
+              {% if image.is_featured %}
+
+                <img class="card-img-top product-image" alt="Product image"
+                     src="{{ image.image.url }}">
+
+              {% endif %}
+
+            {% empty %}
+
+              <img class="card-img-top product-image" alt="Product image"
+                     src="{% static 'images/default-product.png' %}">
+
+            {% endfor %}
+
+
+            {% if product.rating_count %}
+
+              {% divide_partition product.rating_sum product.rating_count as rating_partition %}
+              {% divide_remainder product.rating_sum product.rating_count as rating_remainder %}
+
+              <span class="product-rating">
+
+                {% with ''|center:rating_partition as range %}
+                  {% for _ in range %}
+                      <span class="fa fa-star stars"></span>
+                  {% endfor %}
+                {% endwith %}
+
+                {% if rating_remainder == 'Yes' %}
+                  <span class="fa fa-star-half-o stars"></span>
+                {% endif %}
+
+                <span class="fw-bold">({{ product.rating_count }})</span>
+              </span>
+
+            {% endif %}
+
+            <div class="card-body pb-2">
+              <h4><a href="{{ product.category.get_absolute_url }}" class="text-decoration-none text-secondary">{{ product.category.name }}</a></h4>
+              <h4><a href="{{ product.get_absolute_url }}" class="text-decoration-none text-primary">{{ product.title }}</a></h4>
+
+              {% if product.regular_price == product.final_price %}
+
+                <h4 class="fw-bold">{{ product.regular_price }} $</h4>
+
+              {% else %}
+
+                <span class="product-discount text-center text-white fw-bold"> &#128293;{{ product.discount_percentage }}%</span>
+                <span class="h4 crossed-out-price">{{ product.regular_price }} $ <br></span>
+                <span class="h4 fw-bold">{{ product.final_price|floatformat:2 }} $</span>
+
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+      <h3>{% trans 'Most purchased products:' %}</h3>
+
+      <div class="row">
+
+        {% for product in most_purchased %}
+
+          <div class="card p-0 mx-2 mb-3 card-width">
+
+            {% for image in product.product_image.all %}
+
+              {% if image.is_featured %}
+
+                <img class="card-img-top product-image" alt="Product image"
+                     src="{{ image.image.url }}" loading="lazy">
+
+              {% endif %}
+
+            {% empty %}
+
+              <img class="card-img-top product-image" alt="Product image"
+                     src="{% static 'images/default-product.png' %}">
+
+            {% endfor %}
+
+
+            {% if product.rating_count %}
+
+              {% divide_partition product.rating_sum product.rating_count as rating_partition %}
+              {% divide_remainder product.rating_sum product.rating_count as rating_remainder %}
+
+              <span class="product-rating">
+
+                {% with ''|center:rating_partition as range %}
+                  {% for _ in range %}
+                      <span class="fa fa-star stars"></span>
+                  {% endfor %}
+                {% endwith %}
+
+                {% if rating_remainder == 'Yes' %}
+                  <span class="fa fa-star-half-o stars"></span>
+                {% endif %}
+
+                <span class="fw-bold">({{ product.rating_count }})</span>
+              </span>
+
+            {% endif %}
+
+
+            <div class="card-body pb-2">
+              <h4><a href="{{ product.category.get_absolute_url }}" class="text-decoration-none text-secondary">{{ product.category.name }}</a></h4>
+              <h4><a href="{{ product.get_absolute_url }}" class="text-decoration-none text-primary">{{ product.title }}</a></h4>
+              {% if product.regular_price == product.final_price %}
+
+                <h4 class="fw-bold">{{ product.regular_price }} $</h4>
+
+              {% else %}
+
+                <span class="product-discount text-center text-white fw-bold"> &#128293;{{ product.discount_percentage }}%</span>
+                <span class="h4 crossed-out-price">{{ product.regular_price }} $ <br></span>
+                <span class="h4 fw-bold">{{ product.final_price|floatformat:2 }} $</span>
+
+              {% endif %}
+
+            </div>
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}

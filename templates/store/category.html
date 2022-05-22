@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}
+{{ category.name | capfirst }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="col-12">
+      <div class="col-sm-6">
+        <h1 class="h2">{{ category.name|title }} {% trans 'category' %}</h1>
+      </div>
+    </div>
+    <hr/>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="album">
+        <div class="row row-cols-md-6 g-4">
+
+          {% for subcategory in subcategories %}
+            <a href="{{ subcategory.get_absolute_url }}" class="btn text-primary rounded-pill mx-2 mb-3 subcategories">{{ subcategory.name }}</a>
+          {% empty %}
+            <span></span>
+          {% endfor %}
+
+        </div>
+
+        <h3>{% trans "Category's and child's categories products:" %}</h3>
+        <div class="row">
+          {% for product in products %}
+
+            <div class="card p-0 mx-2 mb-3 card-width">
+
+              {% for image in product.product_image.all %}
+
+                {% if image.is_featured %}
+
+                  <img class="card-img-top" alt="Product image"
+                       src="{{ image.image.url }}"
+                       style="height:180px">
+
+                {% endif %}
+
+              {% empty %}
+
+                <img class="card-img-top product-image" alt="Product image"
+                       src="{% static 'images/default-product.png' %}">
+
+              {% endfor %}
+
+              <div class="card-body pb-2">
+                <h4><a href="{{ product.category.get_absolute_url }}" class="text-decoration-none text-secondary">{{ product.category.name }}</a></h4>
+                <h4><a href="{{ product.get_absolute_url }}" class="text-decoration-none text-primary">{{ product.title }}</a></h4>
+                {% if product.regular_price == product.final_price %}
+                  <h4 class="fw-bold">{{ product.regular_price }} $</h4>
+                {% else %}
+                  <span class="h4 crossed-out-price">{{ product.regular_price }} $ <br></span>
+                  <span class="h4 fw-bold">{{ product.final_price|floatformat:2 }} $</span>
+                {% endif %}
+              </div>
+
+            </div>
+          {% empty %}
+
+            <div class="pt-2 col-12">
+              <span class="h5">
+                {% trans 'No available products' %}
+                <a href="{% url 'store:store_home' %}">{% trans 'shop' %}</a>
+              </span>
+            </div>
+
+          {% endfor %}
+
+        </div>
+
+        {% if is_paginated %}
+          <span class="pagination">
+              <span class="pagination">
+                  {% if page_obj.has_previous %}
+
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans 'previous' %}</a>
+
+                  {% else %}
+
+                    <span class="page-item disabled">
+                          <span class="page-link">{% trans 'previous' %}</span>
+                    </span>
+
+                  {% endif %}
+
+                    {% for page in page_obj.paginator %}
+
+                      {% if page.number == page_obj.number %}
+                        <span class="page-item active">
+                          <a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a>
+                        </span>
+                      {% else %}
+                        <span class="page-item">
+                          <a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a>
+                        </span>
+                      {% endif %}
+
+                    {% endfor %}
+
+                  {% if page_obj.has_next %}
+
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans 'next' %}</a>
+                  {% else %}
+
+                    <span class="page-item disabled">
+                          <span class="page-link">{% trans 'next' %}</span>
+                    </span>
+
+                  {% endif %}
+              </span>
+          </span>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

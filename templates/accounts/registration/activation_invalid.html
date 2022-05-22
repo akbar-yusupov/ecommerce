@@ -1,0 +1,14 @@
+{% extends "accounts/sub_base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Invalid Account' %}{% endblock %}
+
+{% block sub_content %}
+
+  <div class="container">
+    <div>
+      <h3 class="mb-4">{% trans 'Error' %}</h3>
+      <p>{% trans 'Invalid url for account activation' %}</p>
+    </div>
+  </div>
+
+{% endblock %}

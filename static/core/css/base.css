@@ -1,0 +1,101 @@
+.base-body-div{
+  background: rgb(54,230,104);
+  background: linear-gradient(90deg, rgba(54,230,104,1) 0%, rgba(10,228,182,1) 100%);
+}
+#main-div{
+  border-radius:44px 44px 0px 0px;
+  background-color:white;
+}
+/* Bootstrap Over-ride */
+@media (min-width: 1000px){
+  .container{
+      max-width: 1000px;
+  }
+}
+
+@media (max-width: 1200px){
+  .container{
+      max-width: 100%;
+      padding:0 24px;
+  }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu{
+  top:58px;
+  left:0px;
+  padding:10px;
+}
+
+.alert-primary{
+  background-color: #E4F1FF;
+}
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+html, body, p, div{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.fs12{
+    font-size: 12px;
+}
+
+.fs15{
+    font-size: 15px;
+}
+
+.fs45{
+    font-size: 45px;
+
+}
+.fw300{
+    font-weight: 300;
+}
+
+.fw500{
+    font-weight: 500;
+}
+
+/* Basket Menu */
+.basket-qty{
+    color: #fff;
+    background: #d42114;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 11px;
+    height: 15px;
+    width: 14px;
+    position: absolute;
+    box-sizing: content-box;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 1px;
+    right: 10px;
+}
+
+.basket-btn{
+    position: relative;
+}
+
+.basket-btn:hover, .basket-btn:focus, .basket-btn:active, .basket-btn.active{
+    color:#d42114;
+    transition-duration: 0.4s;
+    background-color: #fff;
+}
+
+.gradient-line{
+  background: linear-gradient(to right, transparent 50%, #fff 50%),
+  linear-gradient(to right, blue, red);background-size: 16px 2px, 100% 2px;
+}
+
+/* Footer */
+.footer > div > div > ul > li{
+    padding-bottom:8px;
+}

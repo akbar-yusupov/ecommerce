@@ -1,0 +1,67 @@
+{% extends "accounts/sub_base.html" %}
+{% load i18n static %}
+{% block title %}{% trans 'Users Wish List' %}{% endblock %}
+
+{% block sub_content %}
+
+  <div class="col-12 mx-auto">
+    <h1 class="h3">{% trans 'My Wishlist' %}</h1>
+    <div>{% trans 'Manage your Wishlist' %}</div>
+    <hr />
+
+    {% if wishlist %}
+
+      {% for product in wishlist  %}
+
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-2">
+              {% for image in product.product_image.all  %}
+                {% if image.is_featured %}
+
+                  <img class="card-img-top product-image" alt="Product image"
+                     src="{{ image.image.url }}">
+
+                {% endif %}
+              {% empty %}
+
+                <img class="card-img-top product-image" alt="Product image"
+                     src="{% static 'images/default-product.png' %}">
+
+              {% endfor %}
+            </div>
+            <div class="col-md-10">
+              <div class="card-body">
+                <h4><a href="{{ product.category.get_absolute_url }}" class="text-decoration-none text-secondary">{{ product.category.name }}</a></h4>
+                <h4><a href="{{ product.get_absolute_url }}" class="text-decoration-none text-primary">{{ product.title }}</a></h4>
+                <p class="card-text">{{product.description|truncatechars:128}}</p>
+                <a type="button" class="btn btn-primary fw500 btn-sm" href="{% url 'accounts:update_wishlist' product.pk %}">
+                  {% trans 'Remove from Wishlist' %}
+                </a>
+                <button id="add-button" value="{{product.id}}"
+                   class="btn btn-primary fw500 btn-sm">
+                  {% trans 'Add to basket' %}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      {% endfor %}
+
+    {% else %}
+
+      <p class="card-text">
+        {% trans 'No products have been added to your wishlist yet' %}
+      </p>
+
+    {% endif %}
+
+  </div>
+  <script>
+    var CSRF_TOKEN = "{{ csrf_token }}";
+    var basket_add_url = "{% url 'basket:basket_add' %}";
+    var redirect_url = "{% url 'store:store_home' %}";
+  </script>
+  <script src="{% static 'accounts/js/user_wishlist.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "payment/sub_base.html" %}
+{% load static i18n %}
+{% block title %}{% trans 'Payment' %}{% endblock %}
+
+{% block sub_content %}
+
+  <form id="payment-form">
+    {% csrf_token %}
+    <h2 class="fw-bold">{% trans 'Payment' %}</h2>
+    <div id="card-errors" class="a" role="alert"></div>
+
+    <hr class="my-3">
+    <label class="h3" for="card-element">{% trans 'Credit or debit card' %}</label>
+    <div id="card-element" class="form-control form-control-payment">
+      <!-- Payment elements will appear here -->
+    </div>
+    <hr class="my-4">
+    <h3 class="my-4">Total: {{ total_price }}$</h3>
+    <button id="submit" class="btn btn-primary w-100 fw-bold" data-secret="{{ client_secret }}">
+      {% trans 'Pay'%}
+    </button>
+
+  </form>
+
+  <script type="text/javascript">
+    var CSRF_TOKEN = "{{ csrf_token }}";
+    var PUBLISHABLE_KEY = "{{ publishable_key }}";
+    var orders_add_url = "{% url 'orders:add' %}";
+    var storage_pk = "{{ storage_pk }}";
+    var address_pk = "{{ address_pk }}";
+    var order_placed_url = "{% url 'payment:order_placed' %}";
+  </script>
+  <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+  <script type="text/javascript" src="{% static 'payment/js/payment.js' %}" data-rel-js></script>
+
+{% endblock %}

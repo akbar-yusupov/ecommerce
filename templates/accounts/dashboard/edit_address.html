@@ -1,0 +1,51 @@
+{% extends "accounts/sub_base.html" %}
+{% load i18n %}
+{% block title %}{% trans 'Edit Addresses' %}{% endblock %}
+
+{% block sub_content %}
+
+  <div class="col-6 mx-auto">
+    <h1 class="h3">{% trans 'Create/Edit Address' %}</h1>
+    <div>{% trans 'Add a new delivery' %} <b>address</b> {% trans 'and delivery preferences' %}</div>
+    <hr />
+    <form id="address_form" class="account-form" method="post" enctype="multipart/form-data">
+
+      {% if form.errors %}
+
+         {% for field in form %}
+
+             {% for error in field.errors %}
+
+                <div class="alert alert-primary">
+                     <strong>{{ error|escape }}</strong>
+                </div>
+
+             {% endfor %}
+
+         {% endfor %}
+
+      {% endif %}
+
+      {% csrf_token %}
+      <label class="small fw-bold">{{ form.phone.label}}</label>
+      {{ form.phone }}
+      <label class="small fw-bold">{{ form.address_line.label}}</label>
+      {{ form.address_line }}
+      <label class="small fw-bold">{{ form.town_city.label}}</label>
+      {{ form.town_city }}
+      <label class="small fw-bold">{{ form.delivery_instructions.label}}</label>
+      {{ form.delivery_instructions }}
+      <hr class="mt-4 mb-3 gradient-line" size="5">
+      <label class="small fw-bold">{{ form.latitude.label}}</label>
+      {{ form.latitude }}
+      <label class="small fw-bold">{{ form.longitude.label}}</label>
+      {{ form.longitude }}
+      <a href="https://www.google.com/maps">{% trans 'Click on the desired point and get coordinates' %}</a>
+      <button class="btn btn-primary btn-block py-2 mb-4 mt-4 fw-bold w-100" type="submit">
+      {% trans 'Save' %}
+      </button>
+    </form>
+
+  </div>
+
+{% endblock %}

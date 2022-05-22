@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans 'Single product' %}{% endblock %}
+
+{% block stylesheet %}
+
+  <link rel="stylesheet" href="{% static 'store/css/store.css' %}">
+
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+
+
+    {% if messages %}
+      <div class="alert alert-warning" role="alert">
+
+        {% for message in messages  %}
+
+          {% if message.tags == "success" %}
+            {{message}} - <a href="{% url 'accounts:wishlist' %}" class="alert-link">{% trans 'Your Wishlist' %}</a>.
+          {% elif message.tags == "info" %}
+            <span class="{{ message.tags }}">{{ message }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    {% endif %}
+
+    <div class="row g-3">
+      <div class="col-12 d-flex justify-content-between">
+      </div>
+      <div class="col-md-5 ps-3 col-lg-5 order-md-last p-0 order-1">
+        <div class="d-grid gap-2">
+          <div class="d-flex d-flex-inline justify-content-between">
+
+            <div>
+
+              {% if product.regular_price == product.final_price %}
+
+                <h4 class="fw-bold">{{ product.regular_price }} $</h4>
+
+              {% else %}
+              <span class="h4 crossed-out-price">
+                {{ product.regular_price }} $
+                <span class="detail-product-discount text-center text-white fw-bold pt-1 single-product-discount-percentage">
+                  &#128293;{{ product.discount_percentage }}%
+                </span>
+              </span>
+
+              <br>
+                <span class="h4 fw-bold">{{ product.final_price }} $</span>
+
+              {% endif %}
+
+            </div>
+
+            <div>
+              <label for="select">{% trans 'Quantity' %}</label>
+              <select id="select" class="h6 store-select-dropdown">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+          <hr>
+          <button type="button" id="add-button" value="{{product.id}}" class="btn btn-success fw500">
+            {% trans 'Add to basket' %}
+          </button>
+          <a href="{% url 'accounts:update_wishlist' product.pk %}"
+             class="btn btn-light fw500" role="button">
+            <b>{% trans 'Add to' %}</b> / <b>{% trans 'Delete from' %}</b> {% trans 'Wishlist'%}
+          </a>
+        </div>
+
+        <div class="col text-center pt-2 pb-2">
+
+          {% if ratable %}
+
+            <h5 class="fw-bold">{% trans 'You bought this product, click star and rate:' %}</h5>
+            <button type="submit" class="fa fa-star fa-2x stars" title="rate as one" id=1></button>
+            <button type="submit" class="fa fa-star fa-2x stars" title="rate as two" id=2></button>
+            <button type="submit" class="fa fa-star fa-2x stars" title="rate as three" id=3></button>
+            <button type="submit" class="fa fa-star fa-2x stars" title="rate as four" id=4></button>
+            <button type="submit" class="fa fa-star fa-2x stars" title="rate as five" id=5></button>
+            <input type="hidden" id="stars" name="stars" value="">
+            <br>
+
+          {% elif user_stars %}
+
+            <h5 class="fw-bold">
+              {% trans 'You bought this product and rated it to:' %}
+            </h5>
+
+            {% for i in user_stars %}
+
+              <button class="fa fa-star fa-2x stars"></button>
+
+            {% endfor %}
+
+          {% endif %}
+
+        </div>
+
+      </div>
+
+      <div class="col-md-7 col-lg-7 p-0">
+        <div class="card mb-3 border-0">
+          <div class="row g-0">
+            <div class="col-md-12">
+              <div class="card-body p-0">
+                <span class="h2 mb-0 pb-4">{{ product.title }}</span>
+                <span class="h5 text-muted">
+                  ({{ product.purchased_times }} {% trans 'time' %} {{ product.purchased_times|pluralize }} {% trans 'bought' %})
+                </span>
+                <div class="pt-4">
+
+                  {% for image in product.product_image.all %}
+
+                    {% if image.is_featured %}
+
+                      <img class="img-fluid mx-auto d-block border border-5 border-primary"
+                           height="150px" width="200px" alt="Product image"
+                           src="{{ image.image.url }}">
+
+                    {% endif %}
+
+                  {% empty %}
+
+                     <img class="img-fluid mx-auto d-block border border-5 border-primary"
+                          alt="Product image" height="150px" width="200px"
+                     src="{% static 'images/default-product.png' %}">
+
+                  {% endfor %}
+
+                </div>
+                <hr>
+                <div class="p-0 m-0">
+
+                  {% for image in product.product_image.all %}
+
+                    {% if not image.is_featured %}
+
+                          <img class="img-fluid" height="110px" width="187px"
+                               src="{{ image.image.url }}" alt="Product image">
+
+                    {% endif %}
+
+                  {% endfor %}
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3 p-4 single-product-description">
+      <h2 class="fw-bold">{% trans 'Description:' %}</h2>
+
+      <div class="mx-2 pt-3 pb-3 px-4 single-product-description-textarea">
+        {% if product.description %}
+          <h5>{{ product.description}}</h5>
+        {% else %}
+          <h5>{% trans 'not specified' %}</h5>
+        {% endif %}
+      </div>
+      <h3 class="py-2 fw-bold">{% trans 'Specifications:' %}</h3>
+      {% for specification in product.specifications.all %}
+        <span class="h5 mx-2 single-product-specification-name">{{ specification.name }}</span>
+        <span class="fw-bold single-product-specification-value">{{ specification.value }}</span>
+        <hr class="mx-auto single-product-specification-hr">
+      {% empty %}
+        <h4 class="mx-3">{% trans 'This product has no specifications' %}</h4>
+      {% endfor %}
+    </div>
+
+    {% if product.recently_viewed_products %}
+
+      <span class="fw-bold fs45">{% trans 'Last visited products:' %}</span>
+      <div class="row">
+        {% for recent in product.recently_viewed_products %}
+          <div class="card p-0 mx-2 mb-3 card-width">
+            {% for image in recent.product_image.all %}
+              {% if image.is_featured %}
+                <img class="card-img-top product-image" alt="Product image"
+                     src="{{ image.image.url }}" loading="lazy">
+              {% endif %}
+            {% empty %}
+              <img class="card-img-top product-image" alt="Product image"
+                   src="{% static 'images/default-product.png' %}"
+                   loading="lazy">
+            {% endfor %}
+            <div class="card-body pb-2">
+              {{ recent.title }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    {% endif %}
+
+  </div>
+
+  <script>
+    var CSRF_TOKEN = "{{ csrf_token }}";
+    var basket_add_url = "{% url 'basket:basket_add' %}";
+    var redirect_url = "{% url 'store:store_home' %}";
+  </script>
+  <script src="{% static 'store/js/single.js' %}"></script>
+{% endblock %}

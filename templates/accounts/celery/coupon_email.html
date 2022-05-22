@@ -1,0 +1,24 @@
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>{% trans 'Special offer' %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+  <h1>{% trans 'Dear customer!' %}</h1>
+  <h3>
+    <a href="{{host}}">{% trans 'We have selected' %}</a> {% trans 'the active coupons special for you:' %}
+  </h3>
+  {% for coupon in coupons %}
+
+    <p>Code: {{ coupon.code }}</p>
+    <p>Valid from: {{ coupon.valid_from }}</p>
+    <p>Valid to: {{ coupon.valid_to }}</p>
+    <p>Discount: {{ coupon.discount }}%</p>
+    <hr>
+
+  {% endfor %}
+</body>
+</html>

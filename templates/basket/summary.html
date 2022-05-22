@@ -1,0 +1,317 @@
+{% extends "base.html" %}
+{% load static i18n update_variable %}
+
+{% block title %}{% trans 'Basket Summary' %}{% endblock title %}
+{% block stylesheet %}
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="col-12">
+      <h1 class="h2">{% trans 'Your Basket' %}</h1>
+    </div>
+    <div class="col-12">
+      <p>{% trans 'Manage your' %} <b>{% trans 'items' %}</b> {% trans 'in your basket' %}</p>
+    </div>
+    <hr />
+  </div>
+
+  <div class="container">
+    <div class="row g-3">
+
+      {% if basket|length == 0 %}
+
+        <div class="col-12">
+          <span class="h5">
+            {% trans 'Your basket is empty' %}
+            <a href="{% url 'store:store_home' %}">{% trans 'shop' %}</a>
+          </span>
+        </div>
+
+      {% else %}
+
+        {% if addresses %}
+
+          <h3 align="center">
+              <b>{% trans 'Delivery route' %}</b>
+          </h3>
+          <div class="m-2 d-flex justify-content-center" id="map">{{ map|safe }}</div>
+          <button type="button" id="route-button" class="btn btn-primary m-2 d-flex justify-content-center" data-toggle="modal" data-target="#RouteModal">
+            {% trans 'Route details' %}
+          </button>
+          <div class="modal fade" id="RouteModal" tabindex="-1" role="dialog" aria-labelledby="Route" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    {% trans 'From' %} <span class="fw-bold" id="storage_city"></span>,
+                    {% trans 'to' %} <span class="fw-bold" id="customer_city"></span>
+                  </h5>
+                  <button type="button" class="close bg-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h6>{% trans 'Distance is' %} <span class="fw-bold" id="distance"></span> {% trans 'km' %}</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% endif %}
+
+          <div class="col-12 p-3 d-flex justify-content-between">
+            <div class="d-flex d-flex-inline">
+              <div class="h-100 d-inline-block">
+                {{distance}}
+                <span class="h2 fw-bold">{% trans 'Your Order' %}</span>
+                <span class="h6 fw-bold text-muted">{% trans '(select and send the address)' %}</span>
+              </div>
+            </div>
+
+            <div class="d-flex d-flex-inline">
+              <div class="h-100 d-inline-block">
+                <span class="h2 fw-bold">{% trans 'Coupon' %}</span>
+                <span class="h6 fw-bold text-muted">{% trans '(not required)' %}</span>
+                <input id="coupon-code" maxlength="64"  class="form-control mb-2">
+                {% if request.session.coupon_discount %}
+                  <h5 class="text-success coupon-discount">
+                    {% trans "The coupon discount percentage is" %} {{request.session.coupon_discount}}
+                  </h5>
+                {% else %}
+                  <h5 id="coupon-discount" class="text-success" hidden></h5>
+                {% endif %}
+                <button id="coupon-submit" class="btn btn-success w-100 fw-bold mb-3">
+                  {% trans 'Enter'%}
+                </button>
+              </div>
+            </div>
+
+            <div class="text-end">
+
+              {% if addresses %}
+
+                <div class="mt-3">{% trans 'Sub Total:' %} <span class="fw-bold h5">$</span><span id="subtotal" class="fw-bold h5">{{basket.get_subtotal_price}}</span></div>
+                <span class="fw-bold">+</span>
+                <div>{% trans 'Delivery:' %} <span id="delivery_price" class="fw-bold h5"></span></div>
+                <hr>
+                <div>{% trans 'Total to pay:' %} <span class="fw-bold h5">$</span><span id="total" class="fw-bold h5"></span></div>
+
+              {% else %}
+
+                <div class="mt-3">{% trans 'Sub Total:' %} <span class="fw-bold h5">{% trans 'Create address' %}</span></div>
+                <span class="fw-bold">+</span>
+                <div>{% trans 'Delivery:' %} <span class="fw-bold h5">{% trans 'Create address' %}</span></div>
+                <hr>
+                <div>{% trans 'Total to pay:' %} <span class="fw-bold h5">{% trans 'Create address' %}</span></div>
+
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="col-md-5 col-lg-4 order-md-last p-0">
+          <div class="d-grid px-4 gap-2">
+            <label class="px-3 h2 form-label">{% trans 'Address:' %}</label>
+
+            {% if addresses %}
+              <form action="{% url 'payment:basket' %}" method="post">
+                {% csrf_token %}
+                <select class="px-2 form-select" name="address" id="address-select" required >
+
+                  {% for address in addresses %}
+
+                    {% if address.default %}
+
+                      <option selected value="{{ address.pk }}" id="init-select">{{ address.address_line|truncatechars:50 }}</option>
+
+                    {% else %}
+
+                      <option value="{{ address.pk }}">{{ address.address_line|truncatechars:50 }}</option>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                </select>
+                <button style="width:100%" type="submit" class="btn btn-lg btn-success fw-bold mt-3">{% trans 'Submit' %}</button>
+              </form>
+            {% else %}
+
+              <a href="{% url 'accounts:add_address'  %}" class="mx-3 h2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+              </a>
+
+            {% endif %}
+
+          </div>
+        </div>
+
+          <div class="col-md-7 col-lg-8 p-0">
+
+            {% for item in basket %}
+              {% with product=item.product %}
+                <div class="product-item" data-index="{{ product.id }}">
+                  <div class="container-fluid mb-3">
+                    <div class="row">
+                      <div class="col-xl-6 p-0 m-0" style="border:1px solid #ddd">
+                        {% if product.active_image %}
+                          <img class="card-img-top" src="{{ product.active_image.image.url }}" height="180px">
+                        {% else %}
+                          <img class="card-img-top" src="{% static 'images/default-product.png' %}" height="180px">
+                        {% endif %}
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-6" style="border:1px solid #ddd">
+                        <h2 class="mt-3">{{ product.title }}</h2>
+                        <label>{% trans 'Quantity' %}</label>
+                        <select id="select-{{product.id}}" style="width:50px;height:31px;">
+                          <option value="" selected disabled hidden>{{ item.qty }}</option>
+                          <option value="">1</option>
+                          <option value="">2</option>
+                          <option value="">3</option>
+                          <option value="">4</option>
+                          <option value="">5</option>
+                        </select>
+                        <a type="button" id="update-button" data-index="{{product.id}}"
+                           class="update-button text-decoration-none small ps-3">
+                          {% trans 'Update' %}
+                        </a>
+                        <a type="button" id="delete-button" data-index="{{product.id}}"
+                           class="delete-button text-decoration-none small">
+                          {% trans 'Delete' %}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endwith %}
+            {% endfor %}
+
+        </div>
+
+      {% endif %}
+
+    </div>
+
+  </div>
+
+<script>
+
+  $(document).ready(function() {
+
+    $( init );
+
+    function init() {
+      var address = $('#address-select option:selected').val();
+      $.ajax({
+        type: 'POST',
+        url: '{% url "basket:basket_summary" %}',
+        data: {
+          address: address,
+          csrfmiddlewaretoken: "{{csrf_token}}",
+          action: 'post'
+        },
+        success: function (json) {
+          $('#map').html(json.map);
+          $('#distance').text(json.distance);
+          $('#customer_city').text(json.customer_city);
+          $('#storage_city').text(json.storage_city);
+          $('#delivery_price').text("$" + json.delivery_price);
+          $('#total').text(json.total_price);
+        },
+        error: function (xhr, errmsg, err) {}
+      });
+    }
+
+    $('#coupon-submit').click(function(){
+      $.ajax({
+        type: 'post',
+        url: "{% url 'store:check_coupon' %}",
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          coupon_code: $('#coupon-code').val(),
+        },
+        success: function(json) {
+          console.log('success');
+          if (json.coupon_discount != 0) {
+            $('#coupon-discount').removeAttr('hidden');
+            $('#coupon-discount').text("The coupon discount percentage is " + json.coupon_discount);
+          }else{
+            $('#coupon-discount').removeAttr('hidden');
+            $('#coupon-discount').text("");
+          }
+        },
+      });
+    });
+
+
+    $('.update-button').click(function() {
+      var product_id = $(this).data('index');
+      $.ajax({
+        type: 'POST',
+        url: '{% url "basket:basket_update" %}',
+        data: {
+          product_id: product_id,
+          product_qty: $('#select-' + product_id + ' option:selected').text(),
+          csrfmiddlewaretoken: "{{csrf_token}}",
+          action: 'post'
+        },
+        success: function (json) {
+          document.getElementById("basket-qty").innerHTML = json.basket_qty
+          document.getElementById("total").innerHTML = json.basket_total
+          document.getElementById("subtotal").innerHTML = json.basket_subtotal
+        },
+        error: function (xhr, errmsg, err) {}
+      });
+    });
+
+    $('.delete-button').click(function() {
+      var product_id = $(this).data('index');
+      $.ajax({
+        type: 'POST',
+        url: '{% url "basket:basket_delete" %}',
+        data: {
+          product_id: product_id,
+          csrfmiddlewaretoken: "{{csrf_token}}",
+          action: 'post'
+        },
+        success: function(json) {
+          $('.product-item[data-index="'+ product_id +'"]').remove();
+          document.getElementById("basket-qty").innerHTML = json.basket_qty;
+          document.getElementById("total").innerHTML = json.basket_total;
+          document.getElementById("subtotal").innerHTML = json.basket_subtotal;
+        },
+      });
+    });
+
+    $('#address-select').change(function(){
+      var address = $('#address-select option:selected').val();
+      $.ajax({
+        type: 'POST',
+        url: '{% url "basket:basket_summary" %}',
+        data: {
+          address: address,
+          csrfmiddlewaretoken: "{{csrf_token}}",
+          action: 'post'
+        },
+        success: function (json) {
+          $('#map').html(json.map);
+          $('#distance').text(json.distance);
+          $('#customer_city').text(json.customer_city);
+          $('#storage_city').text(json.storage_city);
+          $('#delivery_price').text("$" + json.delivery_price);
+          $('#total').text(json.total_price);
+        },
+        error: function (xhr, errmsg, err) {}
+      });
+    });
+
+  });
+</script>
+
+{% endblock %}
