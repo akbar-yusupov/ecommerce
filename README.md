@@ -10,7 +10,7 @@
 
 <hr>
 <h2>Main page:</h2>
-<h3>Five random categories</h3>
+<h3>Five random parent categories</h3>
 <h3>Products of the day(can be changed from admin panel)</h3>
 <h3>Most rated products</h3>
 <h3>Most purchased products</h3>
