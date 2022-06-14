@@ -1,5 +1,5 @@
 <h1>How to use project</h1>
-- <h3>Register using an email, reset password if you need</h3>
+<h3>Register using an email, reset password if you need</h3>
 <hr>
 <h2>Navigation bar:</h2>
 <h3>Choose MPTT category</h3>
