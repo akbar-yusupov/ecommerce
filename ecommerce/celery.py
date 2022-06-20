@@ -17,12 +17,10 @@ app.conf.update(timezone="Asia/Tashkent")
 
 app.config_from_object(settings, namespace="CELERY")
 
-# Periodic task - раз в неделю всем отправлять продукт с самой большой скидкой
-
 app.conf.beat_schedule = {
     "send-customer-product": {
         "task": "accounts.tasks.send_product",
-        "schedule": crontab(hour=11, minute=55),
+        "schedule": crontab(minute=0, hour=10, day_of_week=1),
     }
 }
 

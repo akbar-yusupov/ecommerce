@@ -1,7 +1,12 @@
 flake8
 isort .
 black --line-length 79 .
+
 python manage.py makemessages --all --ignore venv
 python manage.py compilemessages --ignore venv
+
 celery -A ecommerce.celery worker --pool=solo -l info
 celery -A ecommerce beat -l INFO
+
+coverage run -m pytest
+coverage html

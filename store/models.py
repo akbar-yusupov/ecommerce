@@ -207,32 +207,6 @@ class ProductImage(TimeStampedModel):
         default=False,
     )
 
-    def save(self, *args, **kwargs):
-        is_featured_query = ProductImage.objects.filter(
-            product=self.product, is_featured=True
-        ).exists()
-        if is_featured_query:
-            raise ValidationError(_("You need a featured image"))
-        elif self.is_featured:
-            if is_featured_query:
-                raise ValidationError(
-                    f"{self.product.title}"
-                    + _(" can have only 1 featured image(for main pages)")
-                )
-        else:
-            if not ProductImage.objects.filter(
-                product=self.product, is_featured=True
-            ).exists():
-                self.is_featured = True
-                self.save()
-        super().save(*args, **kwargs)
-
-    def delete(self, using=None, keep_parents=False):
-        if not ProductImage.objects.filter(product=self.product).count() > 1:
-            raise ValidationError(_("You cannot delete all product's images"))
-        else:
-            super().delete(using, keep_parents)
-
     class Meta:
         verbose_name = _("Product Image")
         verbose_name_plural = _("Product Images")

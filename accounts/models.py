@@ -17,18 +17,20 @@ class CustomerManager(BaseUserManager):
         other_fields.setdefault("is_staff", True)
         other_fields.setdefault("is_superuser", True)
 
-        if other_fields.get("is_staff") is not True:
+        if not other_fields.get("is_staff"):
             raise ValueError(_("Superuser must be assigned to is_staff=True"))
 
-        elif other_fields.get("is_superuser") is not True:
+        elif not other_fields.get("is_superuser"):
             raise ValueError(
                 _("Superuser must be assigned to is_superuser=True")
             )
+
         return self.create_user(email, full_name, password, **other_fields)
 
     def create_user(self, email, full_name, password, **other_fields):
         if not email:
             raise ValueError(_("You must provide an email address"))
+
         email = self.normalize_email(email)
         user = self.model(email=email, full_name=full_name, **other_fields)
         user.set_password(password)
@@ -89,10 +91,6 @@ class Address(TimeStampedModel):
 
     def __str__(self):
         return self.address_line
-
-    def save(self, *args, **kwargs):
-
-        super().save(*args, **kwargs)
 
     class Meta:
         verbose_name = _("Address")
